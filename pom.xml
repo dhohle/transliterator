@@ -21,6 +21,19 @@
 		<lucene.version>7.5.0</lucene.version>
 	</properties>
 
+	<distributionManagement>
+		<repository>
+			<id>artifactory</id>
+			<name>149-210-159-139-releases</name>
+			<url>http://149.210.159.139:8081/artifactory/libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>artifactory</id>
+			<name>149-210-159-139-snapshots</name>
+			<url>http://149.210.159.139:8081/artifactory/libs-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
@@ -28,10 +41,8 @@
 			<version>${lucene.version}</version>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-client</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-oauth2-client</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -68,6 +79,13 @@
 	</dependencies>
 
 	<build>
+		<finalName>transliterator</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
