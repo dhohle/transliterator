@@ -18,6 +18,12 @@ import io.swagger.annotations.ApiOperation;
 public class TransliteratorController {
 
 	@ApiOperation(value = "Get a list of accepted scripts", response = List.class)
+	@GetMapping("/isonline")
+	public ResponseEntity<String> getIsOnline() {
+		return ResponseEntity.ok().body("online");
+	}
+	
+	@ApiOperation(value = "Get a list of accepted scripts", response = List.class)
 	@GetMapping("/scripts")
 	public ResponseEntity<List<String>> getScriptsLanguages() {
 		final List<String> rs = Statics.loadAllAvailableTransliterations();
