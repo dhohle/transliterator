@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transliterator
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: transliterator
+  template:
+    metadata:
+      labels:
+        app: transliterator
+    spec:
+      containers:
+      - name: transliterator
+        image: dhohle/transliterator
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: transliterator-svc
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: transliterator
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: transliterator-ingress
+spec:
+  tls:
+  - hosts:
+    - danielsblog.info
+#    secretName: transliterator-secret
+  rules:
+  - host: danielsblog.info
+    http:
+      paths:
+      - path: /transliterator
+        backend:
+          serviceName: transliterator-svc
+          servicePort: 8080
+
+    
