@@ -2,9 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: transliterator
+  labels:
+    app: transliterator
 spec:
   replicas: 1
-  selector: 
+  selector:
     matchLabels:
       app: transliterator
   template:
@@ -24,10 +26,10 @@ metadata:
   name: transliterator-svc
 spec:
   ports:
-  - port: 8080
+  - port: 80
     targetPort: 8080
     protocol: TCP
-    name: http
+#    name: http
   selector:
     app: transliterator
 ---
@@ -36,10 +38,6 @@ kind: Ingress
 metadata:
   name: transliterator-ingress
 spec:
-  tls:
-  - hosts:
-    - danielsblog.info
-#    secretName: transliterator-secret
   rules:
   - host: danielsblog.info
     http:
@@ -47,6 +45,4 @@ spec:
       - path: /transliterator
         backend:
           serviceName: transliterator-svc
-          servicePort: 8080
-
-    
+          servicePort: 80
